@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    async function postVal() {
+      var value = document.getElementById("val1").value;
+      fetch("http://localhost:5000/post", {
+        method: "POST",
+        body: JSON.stringify({
+          Name: value,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    }
+    async function getVal() {
+      const response = await fetch("http://localhost:5000/get");
+      const data = await response.json();
+      console.log(data);
+    }
+    async function delVal() {
+      // const response = await fetch("http://localhost:5000/del");
+      // const data = await response.json();
+      // console.log(data);
+      var value = document.getElementById("val1").value;
+      fetch("http://localhost:5000/del", {
+        method: "POST",
+        body: JSON.stringify({
+          _id: value,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    }
+  </script>
+  <body>
+    <input type="text" id="val1" />
+    <button onclick="postVal()">Post Value</button>
+    <button onclick="getVal()">Get Value</button>
+    <button onclick="delVal()">Del Value</button>
+  </body>
+</html>
